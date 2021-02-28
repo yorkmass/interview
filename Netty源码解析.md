@@ -119,6 +119,6 @@ ChannelInitializer是netty内置的一个特殊的Inboundhandler，这个handler
 
 ### 简而言之：
 
-channel注册完成之后，当IO变化时触发读事件的入口：DefaultPipeline.fireChannelRegistered()方法，该方法传入head，从head开始读取，执行invokeChannelRegistered（head）方法，触发invokeChannelRegistered()方法，该方法判断是否有相关的handler，有的话执行handler，没有的话执行fireChannelRead()，handler执行完成也会执行fireChannelRead()【这个方法里面有个findConetxtInbound()找到绑定的入站事件节点】继续调用下一个handler节点然后循环往复
+channel注册完成之后，当IO变化时触发读事件的入口：DefaultPipeline.fireChannelRegistered()方法，该方法传入head，从head开始读取，执行invokeChannelRegistered（head）方法，触发invokeChannelRegistered()方法，该方法判断是否有相关的handler，有的话执行handler，没有的话执行fireChannelRead()，handler执行完成也会执行fireChannelRead()【这个方法里面有个findConetxtInbound()可以进行遍历找到下一个绑定的入站handler节点】继续调用下一个handler节点然后循环往复
 
 ![pipeline](img\pipeline.png)
