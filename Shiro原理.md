@@ -4,7 +4,7 @@
 
 1. shiro在创建用户的时候根据用户输入密码、生成随机salt值（存入数据库），加密算法和迭代次数生成加密的密码存储到数据库中
 
-2. shiro进行登陆的时候，首先在自定义realm的doGetAuthenticationInfo方法中从前台的token判断用户是否存在，然后把所有的用户数据从数据库取出来，取出salt和经过加密的密码。shiro根据用户输入的密码经过salt和shiro配置号的相同的加密算法和迭代次数运算得到的密码和realm中取得的密码进行比对，一样则认证通过！（MD5盐值加密，数据库的salt生成盐值使用下面的方法）登陆成功把user信息存储到session中，前端在cookies中保存JSESSIONID，每次访问页面携带JSESSIONID用户判断用户会话状态（是否登陆过）。 Session的默认失效时间是30分钟，微信access_token的有效期是两小时
+2. shiro进行登陆的时候，首先在自定义realm的doGetAuthenticationInfo方法中从前台的token判断用户是否存在，然后把所有的用户数据从数据库取出来，取出salt和经过加密的密码。shiro根据用户输入的密码经过salt和shiro配置号的相同的加密算法和迭代次数运算得到的密码和realm中取得的密码进行比对，一样则认证通过！（MD5盐值加密，数据库的salt生成盐值使用下面的方法）登陆成功把user信息存储到session中，前端在cookies中保存JSESSIONID，每次访问页面携带JSESSIONID用户判断用户会话状态（是否登陆过）。 Session的默认失效时间是30分钟，微信access_token的有效期是两小时。默认使用session判断。题外话：JWT(json web tokens)机制，登陆成功之后，服务器使用Jwt加密把token返回给客户端，然后客户端每次请求时候header携带token访问服务端，服务端设置过滤器拦截请求判断token是否合法、进行一系列处理。通过即可访问资源。JWT介绍https://blog.csdn.net/weixin_42109071/article/details/102509076 JWT算法介绍https://blog.csdn.net/u010288264/article/details/52004169
 
    ```
    //生成盐
