@@ -124,7 +124,7 @@ String d="ab";
 
 System.out.println(b==c);//不在缓存池false
 
-System.out.println(c==d);//在缓存池，字符串直接量在缓存池中false
+System.out.println(c==d);//在缓存池，字符串直接量在缓存池中true
 
 String f="a"+"b"+"c"+"d";//只创建了一个对象
 ```
